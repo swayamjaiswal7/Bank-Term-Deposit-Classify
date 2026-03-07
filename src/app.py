@@ -13,7 +13,14 @@ st.set_page_config(
     page_icon="💹",
     layout="wide"
 )
-model = joblib.load(".\models\pipeline_xgb.pkl")
+BASE_DIR = Path(__file__).resolve().parent.parent
+MODEL_PATH = BASE_DIR / "models" / "pipeline_xgb.pkl"
+
+@st.cache_resource
+def load_model():
+    return joblib.load(MODEL_PATH)
+
+model = load_model()
 st.markdown(
 """
 # 📊 Bank Marketing Deposit Prediction
