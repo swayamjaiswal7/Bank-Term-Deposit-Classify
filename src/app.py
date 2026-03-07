@@ -24,8 +24,8 @@ st.markdown(
 """
 # 📊 Bank Marketing Deposit Prediction
 ### Machine Learning Dashboard
-Predict whether a customer will subscribe to a **term deposit** using an XGBoost model.
-:blue-background[highlight] text.'
+:blue-background[Predict whether a customer will subscribe to a **term deposit** using an XGBoost model.
+] text.'
 """
 )
 
