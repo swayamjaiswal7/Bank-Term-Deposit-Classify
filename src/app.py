@@ -25,7 +25,7 @@ st.markdown(
 # 📊 Bank Marketing Deposit Prediction
 ### Machine Learning Dashboard
 :blue-background[Predict whether a customer will subscribe to a **term deposit** using an XGBoost model.
-] text.'
+]
 """
 )
 
