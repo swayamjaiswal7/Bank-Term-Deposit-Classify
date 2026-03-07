@@ -3,7 +3,6 @@ import pandas as pd
 import joblib
 from pathlib import Path
 from sklearn.metrics import precision_recall_curve
-from sklearn.metrics import roc_auc_score
 import matplotlib.pyplot as plt
 import shap
 
@@ -26,14 +25,9 @@ st.markdown(
 # 📊 Bank Marketing Deposit Prediction
 ### Machine Learning Dashboard
 Predict whether a customer will subscribe to a **term deposit** using an XGBoost model.
+:blue-background[highlight] text.'
 """
 )
-st.title("Bank Marketing Deposit Prediction")
-
-st.write("""
-This application predicts whether a customer is likely to subscribe
-to a **term deposit** based on demographic and campaign data.
-""")
 
 st.sidebar.header("Customer Information")
 
