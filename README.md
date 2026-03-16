@@ -81,8 +81,8 @@ Categorical variables were encoded using OneHotEncoding inside a **ColumnTransfo
 
 ## 2️ ML Pipeline
 A **ColumnTransformer** was built using a pipeline to ensure consistent preprocessing and prediction.:
-- **XGBoost Classifier**
-The final model is XGBoost, a powerful gradient boosting algorithm for tabular data.
+- **Gradient Boosting**
+The final model is Gradient Boosting, a powerful gradient boosting algorithm for tabular data.
 
 ## 3️ Train-Test Split
 The dataset was split into:
@@ -93,17 +93,44 @@ The dataset was split into:
 This ensures the model is evaluated on unseen data and reduces overfitting risk.
 
 #  Machine Learning Models Built
-- XGBoost
+- Gradient Boosting , Random Forest , Decision Tree
 - Key Parameters used :
 ```
- n_estimators = 300
-max_depth = 7
-learning_rate = 0.1
-subsample = 0.5
-colsample_bytree = 0.8
-max_leaf_nodes = 1000
-scale_pos_weight = class_0 / class_1
-random_state = 42 
+**Decision Tree**
+(
+'splitter': 'best',
+ 'min_samples_split': 20,
+ 'min_samples_leaf': 2,
+ 'max_features': None,
+ 'max_depth': 7,
+ 'criterion': 'gini',
+ 'class_weight': 'balanced',
+ 'ccp_alpha': 0.0001)
+
+**Random Forest**
+({'oob_score': True,
+ 'n_estimators': 500,
+ 'min_samples_split': 10,
+ 'min_samples_leaf': 1,
+ 'min_impurity_decrease': 0.01,
+ 'max_samples': None,
+ 'max_features': 'sqrt',
+ 'max_depth': 15,
+ 'criterion': 'entropy',
+ 'class_weight': 'balanced',
+ 'ccp_alpha': 0.0})
+
+**Gradient Boosting**
+'subsample': 0.5,
+ 'n_estimators': 500,
+ 'min_samples_split': 20,
+ 'min_samples_leaf': 5,
+ 'min_impurity_decrease': 0.01,
+ 'max_features': 'log2',
+ 'max_depth': 7,
+ 'learning_rate': 0.02,
+ 'criterion': 'friedman_mse',
+ 'ccp_alpha': 0.0001}
 ```
 Each model was evaluated using classification metrics rather than only accuracy.
 - Prediction = Yes if Probability > 0.65
@@ -135,35 +162,17 @@ Higher AUC indicates better class discrimination.
 
 # 📊 Model Performance Comparison
 
-## XGBoost Classifier 
-XGBoost was selected as the base model
-
-### Why Random Forest ?
-Random Forest improves Decision Trees by:
-- Creating multiple trees (ensemble learning)
-- Reducing overfitting using weak learners
-- Capturing complex feature interactions
-
-Most importantly:
-XGBoost Classifier produced the best balance between:
-- accuracy
-- precision
-- recall
-- F1-score
-
-This makes it more reliable for real-world marketing decision-making.
-
-##  XGBoost Evaluation Metrics
+##  Gradient Boosting Evaluation Metrics
 
 | Metric | Value | Interpretation |
 |--------|-------|----------------|
-| Accuracy | ~0.85 | Overall predictions were correct for most customers |
+| Accuracy | ~0.84 | Overall predictions were correct for most customers |
 | Precision | ~0.64 | Out of predicted subscribers, 64% were actual subscribers |
-| Recall | ~0.63 | Captured around 63% of actual subscribers |
-| F1-Score | ~0.64 | Balanced performance between precision & recall |
+| Recall | ~0.68 | Captured around 68% of actual subscribers |
+| F1-Score | ~0.66 | Balanced performance between precision & recall |
 
 ###  Key Interpretation
-XGBoost provides a strong business advantage:
+Gradient Boosting provides a strong business advantage:
 
 - It reduces false marketing calls compared to Logistic Regression & Random Forest.
 - It provides better targeting efficiency.
@@ -172,14 +181,12 @@ XGBoost provides a strong business advantage:
 Even though recall is not extremely high, the precision is strong, which is useful when marketing cost per call is high.
 
 ---
-# 📈 ROC Curve & AUC Score
-
-### ROC Curve
-ROC curve was plotted for Random Forest using predicted probabilities.
-
-### AUC Score (Random Forest)
-- **AUC ≈ 0.726**
-
+## Features Importances (Gradient Boosting Classifier)
+# 📈 Precision-Recall Curve & AUC Score
+![alt text](image.png)
+### PR-AUC Score (Gradient Boosting)
+- **Precision-Recall ≈ 0.3523**
+![alt text](image-1.png)
  Interpretation:
 The model has a moderate ability to distinguish between subscribers and non-subscribers.
 This also indicates that marketing outcomes are influenced by complex behavioral factors, and perfect separation is difficult.
@@ -219,15 +226,16 @@ The dashboard provides a complete business overview of:
 - Pandas, NumPy
 - Scikit-learn
 - Matplotlib, Seaborn
-- XGBoost
+- Gradient Boosting
 - SHAP
 ### Models Used
 - Logistic Regression
+- Decision Tree
 - Random Forest
-- XGBoost Classifier
+- Gradient Boosting Classifier
 
 ### Model Deployment Ready
-- joblib model saving (`pipeline_xgb.pkl`)
+- joblib model saving (`gb_pipeline.pkl`)
 
 ---
 
@@ -239,9 +247,8 @@ The dashboard provides a complete business overview of:
 4. Feature scaling
 5. Model training and comparison
 6. Evaluation using classification metrics
-7. ROC-AUC evaluation
-8. Precision-Recall Curve
-9. Model saving for deployment
+7. Precision-Recall Curve
+8. Model saving for deployment
 
 ---
 
@@ -250,5 +257,5 @@ This project delivers a complete marketing analytics solution by integrating:
 
  **Machine Learning classification for customer subscription prediction**  
 
-The final XGBoost model provides the best tradeoff between precision and recall, making it suitable for campaign targeting and marketing optimization.
+The final Gradient Boosting model provides the best tradeoff between precision and recall, making it suitable for campaign targeting and marketing optimization.
 
